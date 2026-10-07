@@ -1,0 +1,10 @@
+{
+  "Modo": "SqlServer",
+  "ConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=ProtocoloCartorio;Trusted_Connection=True;TrustServerCertificate=True",
+  "NomeCartorio": "Registro de Imóveis de Exemplo",
+  "Prazos": {
+    "DiasParaRegistro": 10,
+    "DiasVigenciaPrenotacao": 20,
+    "DiasAlerta": 2
+  }
+}

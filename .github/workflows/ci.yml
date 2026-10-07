@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    name: Testes (Core + SQL Server)
+    runs-on: ubuntu-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: Cartorio#Teste2026
+        ports: ["1433:1433"]
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P 'Cartorio#Teste2026' -Q 'SELECT 1'"
+          --health-interval 10s --health-timeout 5s --health-retries 20
+    env:
+      CARTORIO_TEST_SQL: Server=localhost,1433;Database=CartorioTestes;User Id=sa;Password=Cartorio#Teste2026;TrustServerCertificate=True
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Testes de domínio, presenters e relatórios
+        run: dotnet test tests/Cartorio.Core.Tests --logger "console;verbosity=normal"
+      - name: Testes de integração com SQL Server
+        run: dotnet test tests/Cartorio.Data.Tests --logger "console;verbosity=normal"
+
+  winforms:
+    name: Build do app (Windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet build ProtocoloCartorio.sln -c Release
+      - run: dotnet publish src/Cartorio.WinForms -c Release -o publish --no-self-contained
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ProtocoloCartorio-win
+          path: publish

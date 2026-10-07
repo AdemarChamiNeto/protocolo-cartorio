@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Repositório SQL Server em ADO.NET puro (DbConnection). O driver (SqlClient) entra só no app e nos testes. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cartorio.Core\Cartorio.Core.csproj" />
+    <EmbeddedResource Include="Scripts\*.sql" />
+  </ItemGroup>
+</Project>

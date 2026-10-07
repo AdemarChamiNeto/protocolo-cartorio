@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Regras de negócio, presenters (MVP) e relatórios: nada de WinForms aqui, então tudo é testável. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Cartorio.Core.Tests" />
+  </ItemGroup>
+</Project>

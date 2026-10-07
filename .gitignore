@@ -1,0 +1,6 @@
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+src/Cartorio.WinForms/config.local.json
