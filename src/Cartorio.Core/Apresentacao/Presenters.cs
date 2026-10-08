@@ -36,7 +36,9 @@ public sealed class ListaProtocolosPresenter(IListaProtocolosView view, Protocol
     {
         var cancelados = servico.CancelarPrenotacoesVencidas();
         if (cancelados.Count > 0)
-            view.MostrarAviso($"Prenotação vencida, protocolo(s) cancelado(s) automaticamente: {string.Join(", ", cancelados)}.");
+            view.MostrarAviso(cancelados.Count == 1
+                ? $"O protocolo nº {cancelados[0]} foi cancelado automaticamente: a prenotação venceu sem que as exigências fossem cumpridas."
+                : $"Os protocolos nº {string.Join(", ", cancelados)} foram cancelados automaticamente: a prenotação venceu sem que as exigências fossem cumpridas.");
         Buscar();
     }
 
